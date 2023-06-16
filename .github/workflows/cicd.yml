@@ -3,8 +3,6 @@ name: Aurora API CI/CD pipeline
 
 on:
   push:
-    branches:
-      - release
     tags: 
       - '[0-9]+.[0-9]+.[0-9]+'
   pull_request:
@@ -39,7 +37,7 @@ jobs:
       packages: write
 
     # Run only the PR is to master branch
-    if: github.base_ref == 'refs/heads/master'
+    if: github.base_ref == 'master'
     steps: 
       - name: build and push - dev
         run: |
@@ -62,6 +60,7 @@ jobs:
     - name: build and push - prod
       run: |
           echo "github.ref: ${{ github.ref }}"
+          echo $GITHUB_REF
           echo "github.head_ref: ${{ github.head_ref }}"
           echo "github.base_ref: ${{ github.base_ref }}"
           echo "github.event_name: ${{ github.event_name }}"
