@@ -9,6 +9,7 @@ on:
     types:
       - opened
       - closed
+      - synchronize
 
 jobs: 
   docker_build_dev_pr_to_master_opened_only:
@@ -17,8 +18,8 @@ jobs:
       contents: read
       packages: write
 
-    # Do not run with the pr open
-    if: startsWith(github.ref, 'refs/pull/') && github.base_ref == 'master' && github.event.action == 'opened'
+    # Do not run with the pr, which is not closed
+    if: startsWith(github.ref, 'refs/pull/') && github.base_ref == 'master' && github.event.action != 'closed'
     steps: 
       - name: build docker iamge only
         run: |
