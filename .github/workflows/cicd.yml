@@ -10,6 +10,10 @@ on:
       - opened
       - closed
       - synchronize
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/*.*'
+      - 'scripts/*.*'
 
 jobs: 
   docker_build_dev_pr_to_master_opened_only:
