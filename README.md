@@ -11,3 +11,5 @@ test6
 test7
 
 test8a
+
+test9 - adding paths-ignore
