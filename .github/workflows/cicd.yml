@@ -26,7 +26,7 @@ jobs:
 
     steps: 
       - name: Step 1 - Try composit
-        uses: ./.github/actions/my-action.yml
+        uses: ./.github/actions/my-action
         # run: echo "This step always runs"
 
        # Do not run with the pr, which is not closed
