@@ -127,4 +127,3 @@ jobs:
           echo "github.event.action: ${{ github.event.action }}"
           echo "github.event.pull_request.merged : ${{ github.event.pull_request.merged  }}"
   
-        
