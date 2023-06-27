@@ -10,6 +10,8 @@ on:
       - opened
       - closed
       - synchronize
+    branches:
+      - 'master'
     paths-ignore:
       - '**/*.md'
       - 'docs/*.*'
@@ -22,11 +24,11 @@ jobs:
       contents: read
       packages: write
 
-    # Do not run with the pr, which is not closed
     steps: 
       - name: Step 1
         run: echo "This step always runs"
-      
+
+       # Do not run with the pr, which is not closed
       - name: Step 2a - build docker iamge only
         if: startsWith(github.ref, 'refs/pull/') && github.base_ref == 'master' && github.event.action != 'closed'
         run: |
