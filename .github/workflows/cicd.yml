@@ -35,7 +35,6 @@ jobs:
         if: startsWith(github.ref, 'refs/pull/') && github.base_ref == 'master' && github.event.action != 'closed'
         run: |
             echo "Step 2a - build docker iamge only"
-            echo "github.PAT: ${{ github.PAT }}"
             echo "secrets.PAT: ${{ secrets.PAT }}"
             echo "github.ref: ${{ github.ref }}"
             echo "github.head_ref: ${{ github.head_ref }}"
@@ -65,6 +64,13 @@ jobs:
             echo "github.event_name: ${{ github.event_name }}"
             echo "github.event.action: ${{ github.event.action }}"
             echo "github.event.pull_request.merged : ${{ github.event.pull_request.merged  }}"
+      - name: Step 3
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: heons/test-cicd-dispatch
+          event-type: my-event
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 
   docker_build_dev_pr_to_master_opened_only:
     runs-on: ubuntu-latest
