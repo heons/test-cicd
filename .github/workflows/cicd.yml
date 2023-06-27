@@ -35,6 +35,8 @@ jobs:
         if: startsWith(github.ref, 'refs/pull/') && github.base_ref == 'master' && github.event.action != 'closed'
         run: |
             echo "Step 2a - build docker iamge only"
+            echo "github.PAT: ${{ github.PAT }}"
+            echo "secrets.PAT: ${{ secrets.PAT }}"
             echo "github.ref: ${{ github.ref }}"
             echo "github.head_ref: ${{ github.head_ref }}"
             echo "github.base_ref: ${{ github.base_ref }}"
