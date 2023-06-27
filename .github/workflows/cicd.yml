@@ -14,8 +14,8 @@ on:
       - 'master'
     paths-ignore:
       - '**/*.md'
-      - 'docs/*.*'
-      - 'scripts/*.*'
+      - 'docs/**/*'
+      - 'scripts/**/*'
 
 jobs: 
   test_steps_with_conditions:
