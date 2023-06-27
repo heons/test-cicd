@@ -25,8 +25,9 @@ jobs:
       packages: write
 
     steps: 
-      - name: Step 1
-        run: echo "This step always runs"
+      - name: Step 1 - Try composit
+        uses: ./.github/actions/my-action.yml
+        # run: echo "This step always runs"
 
        # Do not run with the pr, which is not closed
       - name: Step 2a - build docker iamge only
