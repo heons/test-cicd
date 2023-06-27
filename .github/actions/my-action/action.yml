@@ -1,4 +1,5 @@
 name: My Action
+description: description
 
 runs:
   using: "composite"
