@@ -25,6 +25,7 @@ jobs:
       packages: write
 
     steps: 
+      - uses: actions/checkout@v2
       - name: Step 1 - Try composit
         uses: ./.github/actions/my-action
         # run: echo "This step always runs"
