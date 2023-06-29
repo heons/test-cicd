@@ -1,0 +1,19 @@
+{
+  "name": "test-cicd",
+  "version": "0.0.1",
+  "description": "to test github cicd",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heons/test-cicd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heons/test-cicd/issues"
+  },
+  "homepage": "https://github.com/heons/test-cicd#readme"
+}
