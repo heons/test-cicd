@@ -1,0 +1,74 @@
+
+name: test cicd development
+
+on:
+  pull_request:
+    types:
+      - opened
+      - closed
+      - reopened
+      - synchronize
+    branches:
+      - 'master'
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**/*'
+      - 'scripts/**/*'
+      - 'test/**/*'
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    # Run if (1) open / sync PR to master branch, or (2) merged PR to master branch
+    if: github.event.action != 'closed' || github.event.pull_request.merged == true
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@heons'
+
+      - name: Install dependencies
+        run: npm install --tag experimental
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Publish to GitHub Packages
+        if: github.event.pull_request.merged == true
+        run: npm publish --tag experimental
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#   dispatch:
+#     needs: build_and_publish
+#     if: github.event.pull_request.merged == true
+#     strategy:
+#       matrix:
+#         repo: 
+#           - 'EDRInc/aurora-polylines'
+#           - 'EDRInc/aurora-bfusa-address'
+#           - 'EDRInc/aurora-dmtiaddress'
+#           - 'EDRInc/aurora-user-assert-api'
+#           - 'EDRInc/aurora-postalcode-api'
+#           - 'EDRInc/aurora-interpolation'
+#           - 'EDRInc/aurora-api'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Repository Dispatch
+#         uses: peter-evans/repository-dispatch@v2
+#         with:
+#           token: ${{ secrets.AURORA_GHCR_PAT }}
+#           repository: ${{ matrix.repo }}
+#           event-type: package-build-dev
+#           client-payload: '{"repo": "aurora-streetname", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
