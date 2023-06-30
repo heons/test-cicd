@@ -5,7 +5,6 @@ on:
   pull_request:
     types:
       - opened
-      - closed
       - reopened
       - synchronize
     branches:
@@ -20,11 +19,9 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      packages: write
+      contents: read
+      packages: read
 
-    # Run if (1) open / sync PR to master branch, or (2) merged PR to master branch
-    if: github.event.action != 'closed' || github.event.pull_request.merged == true
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -39,31 +36,6 @@ jobs:
       - name: Install dependencies
         run: npm install --tag experimental
         env:
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    #   - name: Run Tests
-    #     run: npm test
-
-    #   - name:  'Automated Version Bump'
-    #     uses:  'phips28/gh-action-bump-version@master'
-    #     env:
-    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     with:
-    #       skip-tag:  'true'
-    #       bump-policy: 'all'
-    #       minor-wording:  'minor,minor/,minor:'
-    #       major-wording:  'major,major/,major:'
-    #       patch-wording:  'patch,patch/,patch:' 
-
-    #   - name: Publish to GitHub Packages
-    #     if: github.event.pull_request.merged == true
-    #     run: npm publish --tag experimental
-    #     env:
-    #       NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #   dispatch:
