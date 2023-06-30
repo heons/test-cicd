@@ -20,7 +20,7 @@ jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     # Run if (1) open / sync PR to master branch, or (2) merged PR to master branch
