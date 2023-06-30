@@ -32,7 +32,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@heons'
 
@@ -44,21 +44,27 @@ jobs:
     #   - name: Run Tests
     #     run: npm test
 
-      - name:  'Automated Version Bump'
-        uses:  'phips28/gh-action-bump-version@master'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          skip-tag:  'true'
-          bump-policy: 'all'
-          minor-wording:  'minor,minor/,minor:'
-          major-wording:  'major,major/,major:'
-          patch-wording:  'patch,patch/,patch:' 
+    #   - name:  'Automated Version Bump'
+    #     uses:  'phips28/gh-action-bump-version@master'
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     with:
+    #       skip-tag:  'true'
+    #       bump-policy: 'all'
+    #       minor-wording:  'minor,minor/,minor:'
+    #       major-wording:  'major,major/,major:'
+    #       patch-wording:  'patch,patch/,patch:' 
 
-      - name: Publish to GitHub Packages
-        if: github.event.pull_request.merged == true
-        run: npm publish --tag experimental
+    #   - name: Publish to GitHub Packages
+    #     if: github.event.pull_request.merged == true
+    #     run: npm publish --tag experimental
+    #     env:
+    #       NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: npm ci
+      - run: npx semantic-release
         env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #   dispatch:
