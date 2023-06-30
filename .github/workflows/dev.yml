@@ -50,6 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           skip-tag:  'true'
+          bump-policy: 'all'
           minor-wording:  'minor,minor/,minor:'
           major-wording:  'major,major/,major:'
           patch-wording:  'patch,patch/,patch:' 
