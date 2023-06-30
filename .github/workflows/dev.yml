@@ -45,7 +45,6 @@ jobs:
     #     run: npm test
 
       - name:  'Automated Version Bump'
-        if: github.event.pull_request.merged == true
         uses:  'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
