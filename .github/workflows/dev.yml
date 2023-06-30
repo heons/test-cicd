@@ -61,7 +61,6 @@ jobs:
     #     env:
     #       NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: npm ci
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
