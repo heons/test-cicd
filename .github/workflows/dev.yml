@@ -44,6 +44,13 @@ jobs:
     #   - name: Run Tests
     #     run: npm test
 
+      - name:  'Automated Version Bump'
+        uses:  'phips28/gh-action-bump-version@master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          skip-tag:  'true'
+
       - name: Publish to GitHub Packages
         if: github.event.pull_request.merged == true
         run: npm publish --tag experimental
