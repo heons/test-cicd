@@ -1,6 +1,6 @@
 {
   "name": "@heons/test-cicd",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "to test github cicd",
   "main": "index.js",
   "scripts": {
