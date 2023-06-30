@@ -50,6 +50,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           skip-tag:  'true'
+          minor-wording:  'minor:'
+          major-wording:  'major:'
+          patch-wording:  'patch:' 
 
       - name: Publish to GitHub Packages
         if: github.event.pull_request.merged == true
