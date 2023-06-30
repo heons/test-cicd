@@ -5,3 +5,4 @@
 // minor/test_01 b
 // minor/test_02 a
 // test_semantic_01 a
+// test sc 02 a
