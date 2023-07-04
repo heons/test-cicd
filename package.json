@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/heons/test-cicd#readme",
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^10.0.1",
     "@semantic-release/git": "^10.0.1"
   }
 }
