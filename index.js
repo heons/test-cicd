@@ -10,3 +10,4 @@
 // test docs(scope)
 // test refactor(scope)
 // test fix(scope)
+// test docs(scope)
