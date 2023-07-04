@@ -38,6 +38,7 @@ jobs:
           major-wording:  'MAJOR:'
           patch-wording:  'patch:,fix:'
 
+          
       # - run: npx semantic-release
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
