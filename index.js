@@ -7,3 +7,4 @@
 // test_semantic_01 a
 // test sc 02 a
 // test fix
+// test docs(scope)
