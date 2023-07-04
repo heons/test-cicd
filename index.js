@@ -13,3 +13,4 @@
 // test docs(scope)
 // test refactor(scope)
 // test refactor(scope-core)
+// test refactor(scope)
