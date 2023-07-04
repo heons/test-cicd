@@ -1,0 +1,58 @@
+
+name: test cicd pushed to master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@heons'
+
+      - name: Install dependencies
+        run: npm install --tag experimental
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#   dispatch:
+#     needs: build_and_publish
+#     if: github.event.pull_request.merged == true
+#     strategy:
+#       matrix:
+#         repo: 
+#           - 'EDRInc/aurora-polylines'
+#           - 'EDRInc/aurora-bfusa-address'
+#           - 'EDRInc/aurora-dmtiaddress'
+#           - 'EDRInc/aurora-user-assert-api'
+#           - 'EDRInc/aurora-postalcode-api'
+#           - 'EDRInc/aurora-interpolation'
+#           - 'EDRInc/aurora-api'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Repository Dispatch
+#         uses: peter-evans/repository-dispatch@v2
+#         with:
+#           token: ${{ secrets.AURORA_GHCR_PAT }}
+#           repository: ${{ matrix.repo }}
+#           event-type: package-build-dev
+#           client-payload: '{"repo": "aurora-streetname", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

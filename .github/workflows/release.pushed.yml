@@ -1,0 +1,35 @@
+
+name: test cicd pushed to release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@heons'
+
+      - name: Install dependencies
+        run: npm install
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: npm dist-tag add @heons/test-cicd@$(npm view @heons/test-cicd@experimental version) latest
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
