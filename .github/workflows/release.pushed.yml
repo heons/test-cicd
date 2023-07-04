@@ -1,26 +1,17 @@
 
-name: test cicd development
+name: test cicd pushed to release
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+  push:
     branches:
-      - 'master'
-    paths-ignore:
-      - '**/*.md'
-      - 'docs/**/*'
-      - 'scripts/**/*'
-      - 'test/**/*'
+      - release
 
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: read
+      packages: write
 
     steps: 
       - name: Checkout repository
@@ -34,9 +25,11 @@ jobs:
           scope: '@heons'
 
       - name: Install dependencies
-        run: npm install --tag experimental
+        run: npm install
         env:
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Run Tests
-      #   run: npm test
+      - name: Publish to GitHub Packages
+        run: npm dist-tag add @heons/test-cicd@$(npm view @heons/test-cicd@experimental version) latest
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
