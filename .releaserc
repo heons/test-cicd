@@ -12,7 +12,9 @@
         { "scope": "*-no-release", "release": false }
       ]
     }],
-    "@semantic-release/npm",
+    ["@semantic-release/npm", {
+      "npmPublish": false
+    }],
     "@semantic-release/git"
   ]
 }
