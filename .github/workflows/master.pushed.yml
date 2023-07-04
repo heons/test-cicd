@@ -4,7 +4,7 @@ name: test cicd pushed to master
 on:
   push:
     branches:
-      - master
+      - chore/test_ph_action_bump_version
 
 jobs:
   build_and_publish:
@@ -34,7 +34,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          minor-wording:  'add,Adds,new'
+          minor-wording:  'add:,Adds:,new:'
+          major-wording:  'MAJOR:'
+          patch-wording:  'patch:,fix:'
 
       # - run: npx semantic-release
       #   env:
