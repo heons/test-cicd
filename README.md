@@ -15,3 +15,4 @@ test8a
 test9 - adding paths-ignore
 
 test - docs()
+test - docs()
