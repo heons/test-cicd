@@ -1,6 +1,5 @@
 
-echo "Log level: ${{ github.event.inputs.logLevel }}"
-echo "Tags: ${{ github.event.inputs.tags }}"
+echo "Log level: $LOG_LEVEL"
 
 # echo "sub-script: success."
 # echo "status=success" >> $GITHUB_OUTPUT
