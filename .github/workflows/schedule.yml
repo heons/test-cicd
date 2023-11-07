@@ -2,8 +2,6 @@
 name: scrpt test cicde with scheduler
 
 on:
-  schedule:
-    - cron: '* * * * *'
   workflow_dispatch:
 
 jobs:
