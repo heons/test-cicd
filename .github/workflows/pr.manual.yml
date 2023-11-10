@@ -16,8 +16,8 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          branch: example-patches
-        #   base: master
+          branch: master
+          base: release
           title: 'Automated PR from master to release'
           body: 'This PR was auto-generated to merge changes from master into the release branch.'
     #   - name: Enable auto-merge
