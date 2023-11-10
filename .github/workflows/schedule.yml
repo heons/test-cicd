@@ -1,0 +1,39 @@
+
+name: scrpt test cicde with scheduler
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'    
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'
+
+jobs:
+  script-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run script - sub script with output
+        id: bash-simple
+        run: |
+          export LOG_LEVEL=${{ github.event.inputs.logLevel }}
+          echo "Tags: ${{ github.event.inputs.tags }}"
+          bash ./scripts/simple.sh
+
+      - name: Run when success
+        if: steps.bash-simple.outputs.status == 'success'
+        run: |
+          echo success
+
+      - name: Run when failure
+        if: steps.bash-simple.outputs.status == 'failure'
+        run: |
+          echo failure
