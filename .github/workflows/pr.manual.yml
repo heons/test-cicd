@@ -26,5 +26,5 @@ jobs:
         uses: peter-evans/enable-pull-request-automerge@v2
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          pull-request-number: ${{ steps.open-pr.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
           merge-method: merge
