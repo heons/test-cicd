@@ -17,7 +17,7 @@ jobs:
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
           commit-message: Automated PR from master to release msg
-          branch: master-to-release
+          branch: master
           base: release
           title: 'Automated PR from master to release'
           body: 'This PR was auto-generated to merge changes from master into the release branch.'
