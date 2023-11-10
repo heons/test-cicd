@@ -11,16 +11,26 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-      - name: Create Pull Request
-        id: create-pr
-        uses: peter-evans/create-pull-request@v5
+      - name: Create pull request
+        id: open-pr
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
-          commit-message: Automated PR from master to release msg
-          branch: master
-          base: release
-          title: 'Automated PR from master to release'
-          body: 'This PR was auto-generated to merge changes from master into the release branch.'
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          destination_branch: "release"
+          pr_title: "feat: PLACEHOLDER TITLE"
+          # pr_template: ".github/PULL_REQUEST_TEMPLATE.md"
+          # pr_reviewer: "paigen11"
+          pr_draft: true
+    #   - name: Create Pull Request
+    #     id: create-pr
+    #     uses: peter-evans/create-pull-request@v5
+    #     with:
+    #       token: ${{ secrets.ACCESS_TOKEN }}
+    #       commit-message: Automated PR from master to release msg
+    #       branch: master-test-branch
+    #       base: master
+    #       title: 'Automated PR from master to release'
+    #       body: 'This PR was auto-generated to merge changes from master into the release branch.'
     #   - name: Enable auto-merge
     #     if: steps.create-pr.outputs.pull-request-number != ''
     #     uses: peter-evans/enable-pull-request-automerge@v2
