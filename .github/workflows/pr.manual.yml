@@ -17,13 +17,13 @@ jobs:
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
           destination_branch: "release"
-          pr_title: "Master to release - should come from input"
+          pr_title: "[Automated] Master to release - should come from input"
           # pr_template: ".github/PULL_REQUEST_TEMPLATE.md"
           # pr_reviewer: "paigen11"
           pr_draft: false
       - name: Enable auto-merge
         if: steps.open-pr.outputs.pr_number != ''
-        uses: peter-evans/enable-pull-request-automerge@v2
+        uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
           pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
