@@ -21,9 +21,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Get package name
+        run: echo "PACKAGE_NAME=$(node -p "require('./package.json').name")" >> $GITHUB_ENV
+
       - name: Run script - sub script with output
         id: bash-simple
         run: |
+          echo ${{ env.PACKAGE_NAME }}
           export LOG_LEVEL=${{ github.event.inputs.logLevel }}
           echo "Tags: ${{ github.event.inputs.tags }}"
           bash ./scripts/simple.sh
