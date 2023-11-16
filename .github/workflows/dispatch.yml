@@ -1,5 +1,5 @@
 
-name: scrpt test cicde with scheduler
+name: scrpt test cicde - dispatch
 
 on:
   workflow_dispatch:
@@ -8,8 +8,8 @@ on:
         description: 'Log level'    
         required: true
         default: 'warning'
-      tags:
-        description: 'Test scenario tags'
+      tag:
+        description: 'git tag'
 
 jobs:
   script-test:
@@ -29,7 +29,7 @@ jobs:
         run: |
           echo ${{ env.PACKAGE_NAME }}
           export LOG_LEVEL=${{ github.event.inputs.logLevel }}
-          echo "Tags: ${{ github.event.inputs.tags }}"
+          echo "Tag: ${{ github.event.inputs.tag }}"
           bash ./scripts/simple.sh
 
       - name: Run when success
@@ -50,5 +50,5 @@ jobs:
 
       - name: Checkout release and create a tag
         run: |
-            git tag 0.0.1
+            git tag ${{ github.event.inputs.tag }}
             git push --tags
