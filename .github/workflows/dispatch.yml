@@ -37,17 +37,16 @@ jobs:
         id: bash-github-api
         run: |
           array=(
-            "element1"
+            "heons/test-cicd"
             "element2"
             "element3"
           )
           for i in "${array[@]}"
           do
             echo "$i"
+            gh api repos/$i/dispatches \
+              --input - <<< '{"event_type":"dispatch-release-packages", "client_payload":{"prTitle": "pr title"}}'
           done
-          gh api repos/heons/test-cicd/dispatches \
-            --input - <<< '{"event_type":"dispatch-release-packages", "client_payload":{"prTitle": "pr title"}}'
-        # shell: bash
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
