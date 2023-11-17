@@ -1,0 +1,17 @@
+
+name: scrpt test cicde - dispatched
+
+on:
+  repository_dispatch:
+    types: [dispatch-release-packages]
+
+jobs:
+  script-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps: 
+      - name: Dispatched information
+        run: |
+          echo "prTitle : ${{ github.event.client_payload.prTitle }}"
