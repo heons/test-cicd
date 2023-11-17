@@ -45,7 +45,7 @@ jobs:
           do
             echo "$i"
           done
-          gh api repos/heons/test-cicd/dispatches --field event_type=dispatch-release-packages --field client_payload='{"prTitle": "pr title"}'
+          gh api repos/heons/test-cicd/dispatches --field event_type=dispatch-release-packages --field client_payload=${{ toJson('{"prTitle": "pr title"}') }}
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
