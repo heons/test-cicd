@@ -10,6 +10,7 @@ on:
         default: 'warning'
       tag:
         description: 'git tag'
+        default: '0.0.0'
 
 jobs:
   script-test:
@@ -42,7 +43,25 @@ jobs:
         run: |
           echo failure
 
-      - name: Checkout repository
+      - name: Check if tag exists
+        uses: uruz-7/tag-exists-action@v2
+        id: check-tag
+        with:
+          tag: ${{ github.event.inputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      tagExists: ${{ steps.check-tag.outputs.exists }}
+      
+  checkout_release_and_add_tag:
+    if: ${{ needs.script-test.outputs.tagExists == 'false' }}
+    needs: script-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps: 
+      - name: Checkout repository - release
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
