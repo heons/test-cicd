@@ -48,7 +48,7 @@ jobs:
               --input - <<< '{"event_type":"dispatch-release-packages", "client_payload":{"prTitle": "pr title"}}'
           done
         env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.CICD_TOKEN }}
 
       - name: Run when success
         if: steps.bash-simple.outputs.status == 'success'
@@ -81,7 +81,7 @@ jobs:
       - name: Checkout repository - release
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.CICD_TOKEN }}
           ref: release
 
       - name: Checkout release and create a tag
